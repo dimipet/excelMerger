@@ -10,6 +10,9 @@ import com.dimipet.excelmerger.controller.XLSXFileController;
 import com.dimipet.excelmerger.controller.XLSXFileControllerImpl;
 import com.dimipet.excelmerger.properties.ExcelFiles;
 import com.dimipet.excelmerger.properties.ExcelFiles.InputFile;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class App {
 
@@ -26,7 +29,7 @@ public class App {
                     excelFiles.getOutputFile().getPath(),
                     excelFiles.getOutputFile().getWorkbook(),
                     excelFiles.getOutputFile().getHeading()
-            );
+            );          
 
             for (InputFile inputFile : excelFiles.getInputFile()) {
                 System.out.println("### parsing ..." + inputFile.getPath());
@@ -41,7 +44,7 @@ public class App {
                             excelFiles.getOutputFile().getPath(),
                             excelFiles.getOutputFile().getWorkbook()
                     );
-                }
+                }   
                 
                 xcontoller.mergeContent(
                         inputFile.getPath(),
@@ -49,16 +52,17 @@ public class App {
                         inputFile.getContent().getStart(),
                         inputFile.getContent().getEnd(),
                         inputFile.getContent().getAutoresize().getColumns(),
+                        inputFile.getContent().getRowsheights(),
                         excelFiles.getOutputFile().getPath(),
                         excelFiles.getOutputFile().getWorkbook()
                 );
-
+                
             }
 
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-
+        
     }
 
 }

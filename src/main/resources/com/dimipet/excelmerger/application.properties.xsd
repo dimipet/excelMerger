@@ -41,14 +41,6 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element name="rowsheights" minOccurs="0" maxOccurs="5000">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element type="xs:positiveInteger" name="row"/>
-                                                    <xs:element type="xs:positiveInteger" name="height"/>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
@@ -79,11 +71,12 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element name="rowsheights" minOccurs="0" maxOccurs="5000">
+                                        <!--//TODO max row / big integer -->
+                                        <xs:element name="rowsheights" minOccurs="0" maxOccurs="1000">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element type="xs:positiveInteger" name="row"/>
-                                                    <xs:element type="xs:positiveInteger" name="height"/>
+                                                    <xs:element type="xs:int" name="row"/>
+                                                    <xs:element type="xs:int" name="height"/>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>

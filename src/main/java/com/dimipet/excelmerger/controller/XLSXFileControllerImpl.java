@@ -1,10 +1,12 @@
 package com.dimipet.excelmerger.controller;
 
+import com.dimipet.excelmerger.properties.ExcelFiles.InputFile.Content.Rowsheights;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +55,9 @@ public class XLSXFileControllerImpl implements XLSXFileController {
     }
     
     @Override
-    public void mergeHeader(String inFile, String inWb, String inStartCell, String inLastCell, List<String> autoSizeColumns, String mergeFile, String mWb) {
+    public void mergeHeader(
+            String inFile, String inWb, String inStartCell, String inLastCell, 
+            List<String> autoSizeColumns, String mergeFile, String mWb) {
         
         InputStream inputStream = null;
         XSSFWorkbook inputWorkbook = null;
@@ -95,7 +99,10 @@ public class XLSXFileControllerImpl implements XLSXFileController {
     }
     
     @Override
-    public void mergeContent(String inFile, String inWb, String inStartCell, String inLastColumn, List<String> autoSizeColumns, String mergeFile, String mWb) {
+    public void mergeContent(
+            String inFile, String inWb, String inStartCell, String inLastColumn, 
+            List<String> autoSizeColumns, List<Rowsheights> rowsHeights,
+            String mergeFile, String mWb) {
         
         InputStream inputStream = null;
         XSSFWorkbook inputWorkbook = null;
@@ -125,6 +132,8 @@ public class XLSXFileControllerImpl implements XLSXFileController {
             System.out.println("### will write to " + outStartCellRef.toString());
             
             copier(inputSheet, inStartCellRef, inEndCellRef, mergeWorkbook, mergeSheet, outStartCellRef);
+            
+            rowHeightSetter(mergeSheet, rowsHeights);
             columnAutoSizer(mergeSheet, autoSizeColumns);
             
             outputStream = new FileOutputStream(mergeFile);
@@ -198,6 +207,15 @@ public class XLSXFileControllerImpl implements XLSXFileController {
         for (String column : autosizeColumns) {
             crf = new CellReference(column + "1");
             mergeSheet.autoSizeColumn(crf.getCol());
+        }
+        
+    }
+    
+    private void rowHeightSetter(Sheet mergeSheet, List<Rowsheights> rowsHeights) {
+        for (Rowsheights row : rowsHeights) {
+            ////TODO max row / big integer  BigInteger a = row.getRow();
+           //mergeSheet.getRow(row.getRow()).setHeight((short)-1);
+           mergeSheet.getRow(row.getRow()).setHeight((short)row.getHeight());
         }
         
     }
