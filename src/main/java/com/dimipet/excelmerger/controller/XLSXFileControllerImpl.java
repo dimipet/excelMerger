@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +15,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -27,6 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class XLSXFileControllerImpl implements XLSXFileController {
     
+    private static final Logger logger = Logger.getLogger( XLSXFileControllerImpl.class.getName() );    
     @Override
     public void prepareFile(String outputFile, String workbookName, String heading) {
         FileOutputStream outputStream = null;
@@ -79,12 +78,13 @@ public class XLSXFileControllerImpl implements XLSXFileController {
             CellReference inStartCellRef = new CellReference(inStartCell);
             String endCell = inLastCell;
             CellReference inEndCellRef = new CellReference(endCell);
-            System.out.println("### reading from " + inStartCellRef.toString() + "-" + inEndCellRef.toString());
             
-            System.out.println("### lastRowNum of out.xlsx [0-based] " + mergeSheet.getLastRowNum());
+            logger.log(Level.INFO, "reading from " + inStartCellRef.formatAsString() + "-" + inEndCellRef.formatAsString());
+            
+            logger.log(Level.INFO, "finding output's file lastRowNum [0-based] " + mergeSheet.getLastRowNum());
             
             CellReference outStartCellRef = new CellReference(mergeSheet.getLastRowNum() + 1, mergeSheet.getLeftCol());
-            System.out.println("### will write to " + outStartCellRef.toString());
+            logger.log(Level.INFO, "will write to " + outStartCellRef.formatAsString());
             
             copier(inputSheet, inStartCellRef, inEndCellRef, mergeWorkbook, mergeSheet, outStartCellRef);
             columnAutoSizer(mergeSheet, autoSizeColumns);
@@ -124,12 +124,12 @@ public class XLSXFileControllerImpl implements XLSXFileController {
             CellReference inStartCellRef = new CellReference(inStartCell);
             String endCell = inLastColumn + "" + (inputSheet.getLastRowNum() + 1);
             CellReference inEndCellRef = new CellReference(endCell);
-            System.out.println("### reading from " + inStartCellRef.toString() + "-" + inEndCellRef.toString());
+            logger.log(Level.INFO, "reading from " + inStartCellRef.formatAsString() + "-" + inEndCellRef.formatAsString());
             
-            System.out.println("### lastRowNum of out.xlsx [0-based] " + mergeSheet.getLastRowNum());
+            logger.log(Level.INFO, "finding output's file lastRowNum [0-based] " + mergeSheet.getLastRowNum());
             
             CellReference outStartCellRef = new CellReference(mergeSheet.getLastRowNum() + 1, mergeSheet.getLeftCol());
-            System.out.println("### will write to " + outStartCellRef.toString());
+            logger.log(Level.INFO, "will write to " + outStartCellRef.formatAsString());
             
             copier(inputSheet, inStartCellRef, inEndCellRef, mergeWorkbook, mergeSheet, outStartCellRef);
             
@@ -169,24 +169,24 @@ public class XLSXFileControllerImpl implements XLSXFileController {
                     cellStyleCloner(inCell, outCell, mergeWorkbook);
                 } else if (inCellType == CellType.NUMERIC) {
                     if (DateUtil.isCellDateFormatted(inCell)) {
-                        //System.out.println(inCell.getDateCellValue());
+                        logger.log(Level.FINE, String.valueOf("CellType.NUMERIC (Date) : " + inCell.getDateCellValue()));
                         outCell.setCellValue(inCell.getDateCellValue());
                         cellStyleCloner(inCell, outCell, mergeWorkbook);
                     } else {
-                        //System.out.println(inCell.getNumericCellValue());
+                        logger.log(Level.FINE, String.valueOf("CellType.NUMERIC (Numeric) : " +inCell.getNumericCellValue()));
                         outCell.setCellValue(inCell.getNumericCellValue());
                         cellStyleCloner(inCell, outCell, mergeWorkbook);
                     }
                 } else if (inCellType == CellType.BOOLEAN) {
-                    //System.out.println(inCell.getBooleanCellValue());
+                    logger.log(Level.FINE, String.valueOf("CellType.BOOLEAN : " +inCell.getBooleanCellValue()));
                     outCell.setCellValue(inCell.getBooleanCellValue());
                     cellStyleCloner(inCell, outCell, mergeWorkbook);
                 } else if (inCellType == CellType.FORMULA) {
-                    //System.out.println(inCell.getCellFormula());
+                    logger.log(Level.FINE, String.valueOf("CellType.FORMULA : " +inCell.getCellFormula()));
                     outCell.setCellValue(inCell.getCellFormula());
                     cellStyleCloner(inCell, outCell, mergeWorkbook);
                 } else if (inCellType == CellType.BLANK) {
-                    //System.out.println("");
+                    logger.log(Level.FINE, "CellType.BLANK : ");
                     outCell.setCellValue("");
                     cellStyleCloner(inCell, outCell, mergeWorkbook);
                 }

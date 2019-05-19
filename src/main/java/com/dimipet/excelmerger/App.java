@@ -16,7 +16,12 @@ import java.util.logging.Logger;
 
 public class App {
 
+    private static final Logger logger = Logger.getLogger( App.class.getName() ); 
+    
     public static void main(String[] args) {
+        
+       
+
 
         XLSXFileController xcontoller = new XLSXFileControllerImpl();
 
@@ -32,8 +37,10 @@ public class App {
             );          
 
             for (InputFile inputFile : excelFiles.getInputFile()) {
-                System.out.println("### parsing ..." + inputFile.getPath());
+                logger.log(Level.INFO, "\n\n\n" );
+                logger.log(Level.INFO, inputFile.getPath() + " : parsing ..." );
                 
+                logger.log(Level.INFO, inputFile.getPath() + " : parsing header ..." );
                 if (inputFile.getHeader().isParse()) {
                     xcontoller.mergeHeader(
                             inputFile.getPath(),
@@ -46,6 +53,7 @@ public class App {
                     );
                 }   
                 
+                logger.log(Level.INFO, inputFile.getPath() + " : parsing contents ..." );
                 xcontoller.mergeContent(
                         inputFile.getPath(),
                         inputFile.getWorkbook(),
