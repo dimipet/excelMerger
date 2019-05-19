@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ExcelFiles>
+    
+    <InputFile>
+        <Path>/tmp/excelmerger/proi.xlsm</Path>
+        <Workbook>General</Workbook>
+        <Header>
+            <parse>true</parse>
+            <start>A3</start>
+            <end>A3</end>
+            <autoresize></autoresize>
+        </Header>
+        <Content>
+            <parse>true</parse>
+            <start>B7</start>
+            <end>Q</end>
+            <autoresize>
+                <columns>A</columns>
+                <columns>B</columns>
+                <columns>C</columns>
+                <columns>D</columns>
+                <columns>E</columns>
+                <columns>F</columns>
+                <columns>G</columns>
+                <columns>H</columns>
+                <columns>I</columns>
+                <columns>J</columns>
+                <columns>K</columns>
+                <columns>L</columns>
+                <columns>M</columns>
+                <columns>N</columns>
+                <columns>O</columns>
+                <columns>P</columns>
+            </autoresize>
+        </Content>
+    </InputFile>   
+    
+    <InputFile>
+        <Path>/tmp/excelmerger/mesimeri.xlsm</Path>
+        <Workbook>General</Workbook>
+        <Header>
+            <parse>false</parse>
+            <start>AA</start>
+            <end>AA</end>
+            <autoresize></autoresize>
+        </Header>
+        <Content>
+            <parse>true</parse>
+            <start>B8</start>
+            <end>Q</end>
+            <autoresize></autoresize>
+        </Content>
+    </InputFile>
+    
+    <InputFile>
+        <Path>/tmp/excelmerger/apogeyma.xlsm</Path>
+        <Workbook>General</Workbook>
+        <Header>
+            <parse>false</parse>
+            <start>AA</start>
+            <end>AA</end>
+            <autoresize></autoresize>
+        </Header>
+        <Content>
+            <parse>true</parse>
+            <start>B8</start>
+            <end>Q</end>
+            <autoresize></autoresize>
+        </Content>
+    </InputFile>
+
+    <InputFile>
+        <Path>/tmp/excelmerger/nyxta.xlsm</Path>
+        <Workbook>General</Workbook>
+        <Header>
+            <parse>false</parse>
+            <start>AA</start>
+            <end>AA</end>
+            <autoresize></autoresize>
+        </Header>
+        <Content>
+            <parse>true</parse>
+            <start>B8</start>
+            <end>Q</end>
+            <autoresize></autoresize>
+        </Content>
+    </InputFile>
+    
+    <OutputFile>
+        <Path>/tmp/excelmerger/out.xlsx</Path>
+        <Workbook>merged</Workbook>
+        <Heading>Author: Dimitrios</Heading>
+    </OutputFile>
+    
+</ExcelFiles>

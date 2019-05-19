@@ -1,0 +1,114 @@
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    attributeFormDefault="unqualified" 
+    elementFormDefault="qualified">
+    
+    <xs:element name="ExcelFiles">
+        <xs:complexType>
+            <xs:sequence>
+                
+                
+                <xs:element name="InputFile" minOccurs="1" maxOccurs="100">
+                    <xs:complexType>
+                        <xs:sequence>
+                            
+                                                       
+                            <xs:element type="xs:string" name="Path"/>
+                            <xs:element type="xs:string" name="Workbook"/>
+                            
+                            <xs:element name="Header">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:boolean" name="parse"/>
+                                        <xs:element name="start">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:length value="2"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="end">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:length value="2"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="autoresize">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="columns" minOccurs="0" maxOccurs="10000"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="rowsheights" minOccurs="0" maxOccurs="5000">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:positiveInteger" name="row"/>
+                                                    <xs:element type="xs:positiveInteger" name="height"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            
+                            
+                            <xs:element name="Content">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:boolean" name="parse"/>
+                                        <xs:element name="start">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:length value="2"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="end">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:length value="1"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="autoresize">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="columns" minOccurs="0" maxOccurs="5000"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="rowsheights" minOccurs="0" maxOccurs="5000">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:positiveInteger" name="row"/>
+                                                    <xs:element type="xs:positiveInteger" name="height"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            
+
+                            
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                
+                <xs:element name="OutputFile">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="Path"/>
+                            <xs:element type="xs:string" name="Workbook"/>
+                            <xs:element type="xs:string" name="Heading"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                
+                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/applicationProperties"
+	xmlns:tns="http://www.example.org/applicationProperties"
+	elementFormDefault="qualified">
+
+
+	
+	
+	    <element name="start">
+    	<simpleType>
+    		<restriction base="string">
+    			<length value="2"></length>
+    			<whiteSpace value="collapse"></whiteSpace>
+    		</restriction>
+    	</simpleType>
+    </element>
+
+    <element name="end">
+    	<simpleType>
+    		<restriction base="string">
+    			<length value="2"></length>
+    			<whiteSpace value="collapse"></whiteSpace>
+    		</restriction>
+    	</simpleType>
+    </element>
+</schema>
