@@ -3,7 +3,7 @@
 <ExcelFiles>
     
     <InputFile>
-        <Path>/tmp/excelmerger/proi.xlsm</Path>
+        <Path>/tmp/excelmerger/nyxta.xlsm</Path>
         <Workbook>General</Workbook>
         <Header>
             <parse>true</parse>
@@ -37,6 +37,23 @@
                 <row>2</row>
                 <height>1500</height>
             </rowsheights>
+        </Content>
+    </InputFile>
+    
+    <InputFile>
+        <Path>/tmp/excelmerger/proi.xlsm</Path>
+        <Workbook>General</Workbook>
+        <Header>
+            <parse>false</parse>
+            <start>AA</start>
+            <end>AA</end>
+            <autoresize></autoresize>
+        </Header>
+        <Content>
+            <parse>true</parse>
+            <start>B8</start>
+            <end>Q</end>
+            <autoresize></autoresize>
         </Content>
     </InputFile>   
     
@@ -74,22 +91,7 @@
         </Content>
     </InputFile>
 
-    <InputFile>
-        <Path>/tmp/excelmerger/nyxta.xlsm</Path>
-        <Workbook>General</Workbook>
-        <Header>
-            <parse>false</parse>
-            <start>AA</start>
-            <end>AA</end>
-            <autoresize></autoresize>
-        </Header>
-        <Content>
-            <parse>true</parse>
-            <start>B8</start>
-            <end>Q</end>
-            <autoresize></autoresize>
-        </Content>
-    </InputFile>
+    
     
     <OutputFile>
         <Path>/tmp/excelmerger/out.xlsx</Path>
