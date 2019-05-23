@@ -10,7 +10,10 @@ import com.dimipet.excelmerger.controller.XLSXFileController;
 import com.dimipet.excelmerger.controller.XLSXFileControllerImpl;
 import com.dimipet.excelmerger.properties.ExcelFiles;
 import com.dimipet.excelmerger.properties.ExcelFiles.InputFile;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,16 +22,32 @@ public class App {
     private static final Logger logger = Logger.getLogger( App.class.getName() ); 
     
     public static void main(String[] args) {
+        Properties prop = null;
         
-       
+       try (InputStream input = new FileInputStream("global.properties")) {
 
+            prop = new Properties();
+            prop.load(input);
+            logger.log(Level.INFO, "\n\n\n" );
+            logger.log(Level.INFO, " : loading xml properties file ... : " + prop.getProperty("application.properties.file"));
+                
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        
+        
+        
+        
 
         XLSXFileController xcontoller = new XLSXFileControllerImpl();
 
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(ExcelFiles.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            ExcelFiles excelFiles = (ExcelFiles) unmarshaller.unmarshal(new File("application.properties.xml"));
+            ExcelFiles excelFiles = (ExcelFiles) unmarshaller.unmarshal(new File(prop.getProperty("application.properties.file")));
 
             xcontoller.prepareFile(
                     excelFiles.getOutputFile().getPath(),

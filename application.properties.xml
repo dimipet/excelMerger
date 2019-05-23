@@ -53,7 +53,24 @@
             <parse>true</parse>
             <start>B8</start>
             <end>Q</end>
-            <autoresize></autoresize>
+            <autoresize>
+                <columns>A</columns>
+                <columns>B</columns>
+                <columns>C</columns>
+                <columns>D</columns>
+                <columns>E</columns>
+                <columns>F</columns>
+                <columns>G</columns>
+                <columns>H</columns>
+                <columns>I</columns>
+                <columns>J</columns>
+                <columns>K</columns>
+                <columns>L</columns>
+                <columns>M</columns>
+                <columns>N</columns>
+                <columns>O</columns>
+                <columns>P</columns>
+            </autoresize>
         </Content>
     </InputFile>   
     
@@ -70,7 +87,24 @@
             <parse>true</parse>
             <start>B8</start>
             <end>Q</end>
-            <autoresize></autoresize>
+            <autoresize>
+                <columns>A</columns>
+                <columns>B</columns>
+                <columns>C</columns>
+                <columns>D</columns>
+                <columns>E</columns>
+                <columns>F</columns>
+                <columns>G</columns>
+                <columns>H</columns>
+                <columns>I</columns>
+                <columns>J</columns>
+                <columns>K</columns>
+                <columns>L</columns>
+                <columns>M</columns>
+                <columns>N</columns>
+                <columns>O</columns>
+                <columns>P</columns>
+            </autoresize>
         </Content>
     </InputFile>
     
@@ -87,7 +121,24 @@
             <parse>true</parse>
             <start>B8</start>
             <end>Q</end>
-            <autoresize></autoresize>
+            <autoresize>
+                <columns>A</columns>
+                <columns>B</columns>
+                <columns>C</columns>
+                <columns>D</columns>
+                <columns>E</columns>
+                <columns>F</columns>
+                <columns>G</columns>
+                <columns>H</columns>
+                <columns>I</columns>
+                <columns>J</columns>
+                <columns>K</columns>
+                <columns>L</columns>
+                <columns>M</columns>
+                <columns>N</columns>
+                <columns>O</columns>
+                <columns>P</columns>
+            </autoresize>
         </Content>
     </InputFile>
 
