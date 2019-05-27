@@ -1,17 +1,19 @@
 package com.dimipet.excelmerger.tests;
 
+import com.dimipet.excelmerger.App;
 import com.dimipet.excelmerger.properties.XMLPropertiesValidator;
-import static com.dimipet.excelmerger.properties.XMLPropertiesValidator.SCHEMA_FILE;
-import static com.dimipet.excelmerger.properties.XMLPropertiesValidator.XML_FILE;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.dimipet.excelmerger.util.XMLValidator;
 
 public class PropertiesUnitTest {
+    
+    private static final Logger logger = Logger.getLogger( App.class.getName() ); 
 
     public PropertiesUnitTest() {
     }
@@ -19,7 +21,9 @@ public class PropertiesUnitTest {
     @Test
     public void testPropertiesXMLValidation() {
         XMLPropertiesValidator validator = new XMLPropertiesValidator();
-        System.out.printf("%s properties XML file validation against XSD =", validator.validate());
+        boolean testVal = validator.validate();
+        logger.log(Level.INFO, "properties XML file validation against XSD = " + testVal);
+        assert testVal=true;
 
     }
 
