@@ -10,10 +10,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
 public class PropertiesUnitTest {
-    
-    private static final Logger logger = Logger.getLogger( App.class.getName() ); 
+
+    private static final Logger logger = Logger.getLogger(PropertiesUnitTest.class.getName());
 
     public PropertiesUnitTest() {
     }
@@ -23,7 +22,7 @@ public class PropertiesUnitTest {
         XMLPropertiesValidator validator = new XMLPropertiesValidator();
         boolean testVal = validator.validate();
         logger.log(Level.INFO, "properties XML file validation against XSD = " + testVal);
-        assert testVal=true;
+        assert testVal = true;
 
     }
 

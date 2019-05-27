@@ -7,8 +7,8 @@ import java.util.Properties;
 
 public class AppProperties {
     // static variable single_instance of type Singleton 
-
     private static Properties prop = null;
+    private static final String GLOBAL_PROPERTIES_FILE = "global.properties";
 
     private AppProperties() {
     }
@@ -17,15 +17,11 @@ public class AppProperties {
         
         if (prop == null) {
             prop = new Properties();
-
-            try (InputStream input = new FileInputStream("application.properties")) {
-
+            try (InputStream input = new FileInputStream(GLOBAL_PROPERTIES_FILE)) {
                 prop.load(input);
-
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
         }
 
         return prop;

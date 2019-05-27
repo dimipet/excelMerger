@@ -10,9 +10,7 @@ import com.dimipet.excelmerger.controller.XLSXFileController;
 import com.dimipet.excelmerger.controller.XLSXFileControllerImpl;
 import com.dimipet.excelmerger.properties.ExcelFiles;
 import com.dimipet.excelmerger.properties.ExcelFiles.InputFile;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import com.dimipet.excelmerger.util.AppProperties;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,24 +20,8 @@ public class App {
     private static final Logger logger = Logger.getLogger( App.class.getName() ); 
     
     public static void main(String[] args) {
-        Properties prop = null;
-        
-       try (InputStream input = new FileInputStream("global.properties")) {
-
-            prop = new Properties();
-            prop.load(input);
-            logger.log(Level.INFO, "\n\n\n" );
-            logger.log(Level.INFO, " : loading xml properties file ... : " + prop.getProperty("application.properties.file"));
-                
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        
-        
-        
+        Properties prop =  AppProperties.getInstance();
+        logger.log(Level.INFO, "\n\n\n");
         
 
         XLSXFileController xcontoller = new XLSXFileControllerImpl();
