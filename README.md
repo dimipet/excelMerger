@@ -6,52 +6,84 @@
 
 **ExcelMerger** is a program written in *Java*. Its sole purpose is to merge data from many excel files into a single excel file. The user can give as many files as he wants as input and specify certain rows and columns (*same for every file*) to be copied into the output. 
 
-![pseudocode](C:\Users\asyrmatos 1\Desktop\pseudocode.png)
-
 ------
+## Configuration
+
+All the configuration is done via an xml file. Please copy a sample as follows 
+
+~~~~
+$ cp application.properties.sample.xml application.properties.xml
+~~~~
+
+Next define your custom file in the `global.properties` file
+
+~~~~
+application.properties.file=application.properties.xml
+~~~~
+
+Editing these files should be done with a decent text editor, for windows users [Notepad++](https://notepad-plus-plus.org). 
 
 ## Structure
 
-### The application.properties.xsd file
+Your configuration file (i.e. `application.properties.xml)` should comply with the `application.properties.xsd` found in the `resources` folder. Have a look there if something is not working as expected. 
 
-It handles two elements: The *Header* and the *Content*. This file contains the rules these two methods should obey. 
+### The application.properties.xml
 
-Firstly, it states that the compiler should look at a certain *Path* to find the excel *Workbook*. 
+Main element is the `<ExcelFiles>` under which you can find many `<InputFile>` , where you must define all your input excel files and your (one) and one `<OutputFile>` output file where all the configured input files will get merged into. Both of them share these common tags
 
-```java
-<xs:element type="xs:string" name="Path"/>
-<xs:element type="xs:string" name="Workbook"/>
+`<Path>/path/to/my/file/some-file-a.xlsx</Path>`
+`<Workbook>the-name-of-the-workbook</Workbook>`
+
+Each `<InputFile>` encapsulates the `<Header>` and `<Content>` element.
+
+#### The `<Header>` element
+```xml
+        <Header>
+            <parse>true</parse>
+            <start>A3</start>
+            <end>A3</end>
+            <autoresize></autoresize>
+        </Header>
 ```
+The above snippet states that it will parse a header area of the input file starting from cell A3 and ending at the cell A3. You could also state an ending cell at any cell you wish.
 
-Then it specifies the *type* and *length* of each of the method inputs. These are the beginning and ending points of the data that will be copied from the excel files. 
-
-```java
-<xs:restriction base="xs:string">
-	<xs:length value="2"/>
-</xs:restriction>
+#### The `<Content>` element
+```xml
+        <Content>
+            <parse>true</parse>
+            <start>B7</start>
+            <end>Q</end>
+            <autoresize>
+                <columns>A</columns>
+                <columns>B</columns>
+                <columns>C</columns>
+                <columns>D</columns>
+                <columns>E</columns>
+                <columns>F</columns>
+                <columns>G</columns>
+                <columns>H</columns>
+                <columns>I</columns>
+                <columns>J</columns>
+                <columns>K</columns>
+                <columns>L</columns>
+                <columns>M</columns>
+                <columns>N</columns>
+                <columns>O</columns>
+                <columns>P</columns>
+            </autoresize>
+            <rowsheights>
+                <row>2</row>
+                <height>1500</height>
+            </rowsheights>
+        </Content>
 ```
+The above snippet states that it will parse the area B7 to Q column, until Q column reaches last line and after the merging get's done in the output file, it will autoresize the corresponding `<columns>` and will set `<height>` to 1500 of the 2nd row. 
 
-It also includes restrictions for elements such as the auto resizing, the height and the type of rows and columns. 
-
-```java
-<xs:element name="autoresize">
-	<xs:complexType>
-		<xs:sequence>
-			<xs:element type="xs:string" name="columns" minOccurs="0" maxOccurs="5000"/>
-		</xs:sequence>
-	</xs:complexType>
-</xs:element>
-```
-
-------
-
-## Sample
-
-A [sample](<https://github.com/dimipet/excelMerger/blob/master/application.properties.sample.xml> "application.properties.sample.xml)") xml file can be found on [GitHub](<https://github.com/dimipet/excelMerger> "excelMerger on GitHub"). Users can download it locally and define it on the [global.properties](<https://github.com/dimipet/excelMerger/blob/master/global.properties>"global.properties on GitHub") file. The editing can be done with a text editor like [Notepad++](<https://notepad-plus-plus.org/download/v7.6.6.html>"Notepad++ Download"). 
 
 ------
 
  ## License
 
+Each library is released under its own license. This repository is published under [GNU/GPL Version 3](LICENSE).
 
 
