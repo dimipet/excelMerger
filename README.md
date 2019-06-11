@@ -32,6 +32,7 @@ Your configuration file (i.e. `application.properties.xml)` should comply with t
 Main element is the `<ExcelFiles>` under which you can find many `<InputFile>` , where you must define all your input excel files and your (one) and one `<OutputFile>` output file where all the configured input files will get merged into. Both of them share these common tags
 
 `<Path>/path/to/my/file/some-file-a.xlsx</Path>`
+
 `<Workbook>the-name-of-the-workbook</Workbook>`
 
 Each `<InputFile>` encapsulates the `<Header>` and `<Content>` element.
