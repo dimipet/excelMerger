@@ -21,7 +21,7 @@ Next define your custom file in the `global.properties` file
 application.properties.file=application.properties.xml
 ~~~~
 
-Editing these files should be done with a decent text editor, for windows users [Notepad++](https://notepad-plus-plus.org). 
+Editing these files should be done with a decent text editor. For windows users [Notepad++](https://notepad-plus-plus.org). 
 
 ## Structure
 
@@ -29,13 +29,13 @@ Your configuration file (i.e. `application.properties.xml)` should comply with t
 
 ### The application.properties.xml
 
-Main element is the `<ExcelFiles>` under which you can find many `<InputFile>` , where you must define all your input excel files and your (one) and one `<OutputFile>` output file where all the configured input files will get merged into. Both of them share these common tags
+The main element is the `<ExcelFiles>` under which you can find many `<InputFile>`, where you can define all your input excel files and your (one) `<OutputFile>` output file where all the configured input files will get merged into. Both of them share these common tags
 
 `<Path>/path/to/my/file/some-file-a.xlsx</Path>`
 
 `<Workbook>the-name-of-the-workbook</Workbook>`
 
-Each `<InputFile>` encapsulates the `<Header>` and `<Content>` element.
+Each `<InputFile>` encapsulates the `<Header>` and the `<Content>` elements.
 
 #### The `<Header>` element
 ```xml
@@ -46,7 +46,7 @@ Each `<InputFile>` encapsulates the `<Header>` and `<Content>` element.
             <autoresize></autoresize>
         </Header>
 ```
-The above snippet states that it will parse a header area of the input file starting from cell A3 and ending at the cell A3. You could also state an ending cell at any cell you wish.
+The above snippet states that it will parse a header area of the input file starting from cell A3 and ending at cell A3. You can also define an ending cell at any cell you wish.
 
 #### The `<Content>` element
 ```xml
@@ -78,7 +78,7 @@ The above snippet states that it will parse a header area of the input file star
             </rowsheights>
         </Content>
 ```
-The above snippet states that it will parse the area B7 to Q column, until Q column reaches last line and after the merging get's done in the output file, it will autoresize the corresponding `<columns>` and will set `<height>` to 1500 of the 2nd row. 
+The above snippet states that it will parse the area between cell B7 and column Q. When column Q reaches its last line and after the merging is done in the output file, it will autoresize the corresponding `<columns>` and will set the `<height>` of the 2nd row to 1500. 
 
 
 ------
