@@ -6,6 +6,11 @@
 
 **ExcelMerger** is a program written in *Java*. Its sole purpose is to merge data from many excel files into a single excel file. The user can give as many files as he wants as input and specify certain rows and columns (*same for every file*) to be copied into the output. 
 
+## Prerequisites
+* Java JDK 8
+* JAVA_HOME set
+* Maven for building
+
 ------
 ## Configuration
 
@@ -21,11 +26,13 @@ Next define your custom file in the `global.properties` file
 application.properties.file=application.properties.xml
 ~~~~
 
+If you don't create your own file as stated above, the provided `application.properties.sample.xml`will be used, which probably won't work for your purposes.
+
 Editing these files should be done with a decent text editor. For windows users [Notepad++](https://notepad-plus-plus.org). 
 
 ## Structure
 
-Your configuration file (i.e. `application.properties.xml)` should comply with the `application.properties.xsd` found in the `resources` folder. Have a look there if something is not working as expected. 
+Your configuration file (i.e. `application.properties.xml`) should comply with the `application.properties.xsd` found in the `resources` folder. Have a look there if something is not working as expected. 
 
 ### The application.properties.xml
 
