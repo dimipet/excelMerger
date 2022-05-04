@@ -4,7 +4,7 @@
 
 ------
 
-**ExcelMerger** is a program written in *Java*. Its sole purpose is to merge data from many excel files into a single excel file. The user can give as many files as he wants as input and specify certain rows and columns (*same for every file*) to be copied into the output. 
+**ExcelMerger** is a program written in *Java*. Its sole purpose is to merge data from many excel files into a single excel file.  It is ideal to batch merge same structured xls/xlsx files to one output. The user can give as many files as he wants as input and specify certain rows and columns (*same for every file*) to be copied into the output. 
 
 ## Prerequisites
 * Java JDK 8
