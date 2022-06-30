@@ -1,7 +1,6 @@
 package com.dimipet.excelmerger.controller;
 
 import com.dimipet.excelmerger.properties.ExcelFiles.InputFile.Content.Rowsheights;
-import com.dimipet.excelmerger.util.SHA2;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
