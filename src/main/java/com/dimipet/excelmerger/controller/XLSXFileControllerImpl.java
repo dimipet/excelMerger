@@ -1,11 +1,15 @@
 package com.dimipet.excelmerger.controller;
 
 import com.dimipet.excelmerger.properties.ExcelFiles.InputFile.Content.Rowsheights;
+import com.dimipet.excelmerger.util.SHA2;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +39,7 @@ public class XLSXFileControllerImpl implements XLSXFileController {
         outputWorkbook = new XSSFWorkbook();
         outputSheet = outputWorkbook.createSheet(workbookName);
         
-        int num = outputSheet.getLastRowNum();
+        int num = getLastRowNum(outputSheet);// outputSheet.getLastRowNum();
         Row row = null;
         row = outputSheet.createRow(num++);
         row.createCell(0).setCellValue(heading);
@@ -147,52 +151,100 @@ public class XLSXFileControllerImpl implements XLSXFileController {
     
     private void copier(Sheet inputSheet, CellReference inStartCellRef, CellReference inEndCellRef, Workbook mergeWorkbook, Sheet mergeSheet, CellReference outStartCellRef) {
         
-        int outRowIdx = 0;
-        int outColIdx = 0;
+        int outRowIdx = 0;          // index counting output's file rows
+        int outColIdx = 0;          // index counting output's file column
+        
+        Row inRow = null;           // input's file row reading
+        Row outRow = null;          // output's file row writing
+        Cell inCell = null;         // input's file cell reading
+        Cell outCell = null;        // output's file writing
+        CellType inCellType = null; // input's file cell type
+        
+        /**
+         * all three variables above are used to create a unique ID using SHA512 
+         * for each line parsed. 
+         * */
+        List<String> values = null;
+        String valuesToString = null;
+        String SHA512MessageDigest = null;
         
         for (int rowIdx = inStartCellRef.getRow(); rowIdx <= inEndCellRef.getRow(); rowIdx++) {
             
-            Row inRow = inputSheet.getRow(rowIdx);
-            Row outRow = mergeSheet.createRow(outStartCellRef.getRow() + outRowIdx++);
             outColIdx = 0;
+            
+            inRow = inputSheet.getRow(rowIdx);
+            outRow = mergeSheet.createRow(outStartCellRef.getRow() + outRowIdx++);
+            
+            inCell = null;
+            outCell = null;
+            inCellType = null;
+            
+            values = new ArrayList<String>();
+            valuesToString = null;
+            SHA512MessageDigest = null;
             
             for (int cellIdx = inStartCellRef.getCol(); cellIdx <= inEndCellRef.getCol(); cellIdx++) {
                 
-                Cell inCell = inRow.getCell(cellIdx);
-                Cell outCell = outRow.createCell(outStartCellRef.getCol() + outColIdx++);
-                
-                CellType inCellType = inCell.getCellType();
+                inCell = inRow.getCell(cellIdx);
+                outCell = outRow.createCell(outStartCellRef.getCol() + outColIdx++);
+                inCellType = inCell.getCellType();
                 
                 if (inCellType == CellType.STRING) {
-                    //System.out.println(inCell.getStringCellValue());
+                    logger.log(Level.FINE, "CellType.STRING : " + inCell.getStringCellValue());
                     outCell.setCellValue(inCell.getStringCellValue());
+                    values.add(inCell.getStringCellValue());
                     cellStyleCloner(inCell, outCell, mergeWorkbook);
                 } else if (inCellType == CellType.NUMERIC) {
                     if (DateUtil.isCellDateFormatted(inCell)) {
                         logger.log(Level.FINE, String.valueOf("CellType.NUMERIC (Date) : " + inCell.getDateCellValue()));
                         outCell.setCellValue(inCell.getDateCellValue());
+                        values.add(String.valueOf(inCell.getDateCellValue()));
                         cellStyleCloner(inCell, outCell, mergeWorkbook);
                     } else {
                         logger.log(Level.FINE, String.valueOf("CellType.NUMERIC (Numeric) : " +inCell.getNumericCellValue()));
                         outCell.setCellValue(inCell.getNumericCellValue());
+                        values.add(String.valueOf(inCell.getNumericCellValue()));
                         cellStyleCloner(inCell, outCell, mergeWorkbook);
                     }
                 } else if (inCellType == CellType.BOOLEAN) {
                     logger.log(Level.FINE, String.valueOf("CellType.BOOLEAN : " +inCell.getBooleanCellValue()));
                     outCell.setCellValue(inCell.getBooleanCellValue());
+                    values.add(String.valueOf(inCell.getBooleanCellValue()));
                     cellStyleCloner(inCell, outCell, mergeWorkbook);
                 } else if (inCellType == CellType.FORMULA) {
                     logger.log(Level.FINE, String.valueOf("CellType.FORMULA : " +inCell.getCellFormula()));
                     outCell.setCellValue(inCell.getCellFormula());
+                    values.add(inCell.getCellFormula());
                     cellStyleCloner(inCell, outCell, mergeWorkbook);
                 } else if (inCellType == CellType.BLANK) {
                     logger.log(Level.FINE, "CellType.BLANK : ");
                     outCell.setCellValue("");
+                    values.add("");
                     cellStyleCloner(inCell, outCell, mergeWorkbook);
                 }
             }
             
+            /**
+             * Be careful.
+             * 
+             * The Arraylist<String> returns its values with in [ ] bracket and
+             * delimited by , comma. After each comma there is a space. These 
+             * 3 characters plus the spaces should not be added in the SHA512 
+             * message digest. We should not depend on an implementation i.e. 
+             * ArrayList.toStrin() to produce a unique ID for each line.
+             */
+//            logger.log(Level.INFO, values.toString());
+//            valuesToString = values.toString()
+//                    .replace(", ", "")  //remove the commas and the space after
+//                    .replace("[", "")   //remove the right bracket
+//                    .replace("]", "")   //remove the left bracket
+//                    .trim();            //remove trailing spaces
+//            logger.log(Level.FINE, valuesToString);
+//            SHA512MessageDigest = SHA2.getSHA512(valuesToString);
+//            outCell = outRow.createCell(outStartCellRef.getCol() + outColIdx++);
+//            outCell.setCellValue(SHA512MessageDigest);
         }
+        
     }
     
     private void cellStyleCloner(Cell inCell, Cell outCell, Workbook outputWorkbook) {     
@@ -229,5 +281,17 @@ public class XLSXFileControllerImpl implements XLSXFileController {
     public void makePDF(InputStream inp) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+	private int getLastRowNum(Sheet sheet) {
+		int ret = 1;
+		for (int rowNum = sheet.getLastRowNum(); rowNum >= 0; rowNum--) {
+			final Row row = sheet.getRow(rowNum);
+			if (row != null && row.getCell(0) != null) {
+				ret = rowNum;
+				break;
+			}
+		}
+		return ret;
+	}
     
 }
