@@ -1,6 +1,5 @@
 package com.dimipet.excelmerger.tests;
 
-import com.dimipet.excelmerger.App;
 import com.dimipet.excelmerger.properties.XMLPropertiesValidator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
