@@ -2,8 +2,10 @@ package com.dimipet.excelmerger;
 
 import java.io.File;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,8 +19,8 @@ import com.dimipet.excelmerger.util.AppProperties;
 
 
 public class App {
-
-    private static final Logger logger = Logger.getLogger( App.class.getName() ); 
+	//private static final Logger logger = Logger.getLogger( App.class.getName() );
+    private static final Logger logger = LogManager.getLogger(App.class);
     
     public static final String SAMPLE_APP_PROPEPTIES_FILE = "application.properties.sample.xml";
     
@@ -40,7 +42,7 @@ public class App {
             	appPropFileVal = App.SAMPLE_APP_PROPEPTIES_FILE;
             }
 
-            logger.log(Level.INFO,"# using properties file : " + appPropFileVal);
+            logger.info("# using properties file : " + appPropFileVal);
             
             File appPropFile = new File(appPropFileVal); 
             ExcelFiles excelFiles = (ExcelFiles) unmarshaller.unmarshal(appPropFile);
@@ -52,10 +54,10 @@ public class App {
             );          
 
             for (InputFile inputFile : excelFiles.getInputFile()) {
-                logger.log(Level.INFO,"\n\n\n" );
-                logger.log(Level.INFO,inputFile.getPath() + " : parsing ..." );
+                logger.info("\n\n\n" );
+                logger.info(inputFile.getPath() + " : parsing ..." );
                 
-                logger.log(Level.INFO,inputFile.getPath() + " : parsing header ..." );
+                logger.info(inputFile.getPath() + " : parsing header ..." );
                 if (inputFile.getHeader().isParse()) {
                     xcontoller.mergeHeader(
                             inputFile.getPath(),
@@ -68,7 +70,7 @@ public class App {
                     );
                 }   
                 
-                logger.log(Level.INFO,inputFile.getPath() + " : parsing contents ..." );
+                logger.info(inputFile.getPath() + " : parsing contents ..." );
                 xcontoller.mergeContent(
                         inputFile.getPath(),
                         inputFile.getWorkbook(),
